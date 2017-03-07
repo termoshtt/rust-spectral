@@ -1,0 +1,12 @@
+[package]
+name = "kse"
+version = "0.1.0"
+authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
+
+[dependencies]
+itertools = "*"
+num-traits = "*"
+ndarray = "0.7"
+ndarray-linalg = "0.2"
+ndarray-odeint = {"path" = "../ndarray-odeint"}
+fftw = {"path" = "../fftw3"}
