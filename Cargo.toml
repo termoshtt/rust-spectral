@@ -5,9 +5,9 @@ authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 
 [dependencies]
 num-traits = "0.1"
-num-complex = { git = "http://github.com/rust-num/num" }
+num-complex = "0.1"
 itertools = "0.5"
 ndarray = "0.8"
 ndarray-linalg = "0.3"
 ndarray-odeint = "0.3"
-fftw = { git = "http://github.com/termoshtt/rust-fftw3" }
+fftw = "0.1"
