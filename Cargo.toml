@@ -4,10 +4,10 @@ version = "0.1.0"
 authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 
 [dependencies]
-num-traits  = { git = "http://github.com/rust-num/num" }
+num-traits = "0.1"
 num-complex = { git = "http://github.com/rust-num/num" }
-itertools = "*"
+itertools = "0.5"
 ndarray = "0.8"
-ndarray-linalg = { git = "http://github.com/termoshtt/ndarray-linalg" }
-ndarray-odeint = { git = "http://github.com/termoshtt/ndarray-odeint" }
+ndarray-linalg = "0.3"
+ndarray-odeint = "0.3"
 fftw = { git = "http://github.com/termoshtt/rust-fftw3" }
