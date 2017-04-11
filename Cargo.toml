@@ -1,5 +1,5 @@
 [package]
-name = "kse"
+name = "spectral"
 version = "0.1.0"
 authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 
@@ -10,4 +10,4 @@ itertools = "0.5"
 ndarray = "0.8"
 ndarray-linalg = "0.3"
 ndarray-odeint = "0.3"
-fftw = "0.1"
+fftw = "0.2.0"
