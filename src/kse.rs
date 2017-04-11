@@ -3,11 +3,9 @@ use fftw::*;
 use ndarray::prelude::*;
 use ndarray::RcArray1;
 use ndarray_odeint::prelude::*;
-use num_complex::Complex64 as c64;
 use std::f64::consts::PI;
 
-struct KSE {
-    n_field: usize,
+pub struct KSE {
     n_coef: usize,
     length: f64,
     u_pair: Pair<f64, c64>,
@@ -15,11 +13,10 @@ struct KSE {
 }
 
 impl KSE {
-    fn new(n: usize, length: f64) -> Self {
+    pub fn new(n: usize, length: f64) -> Self {
         let u_pair = Pair::r2c_1d(n, FLAG::FFTW_ESTIMATE);
         let ux_pair = Pair::r2c_1d(n, FLAG::FFTW_ESTIMATE);
         KSE {
-            n_field: u_pair.field.len(),
             n_coef: u_pair.coef.len(),
             length: length,
             u_pair: u_pair,

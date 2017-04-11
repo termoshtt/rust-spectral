@@ -2,49 +2,17 @@
 extern crate itertools;
 extern crate ndarray;
 extern crate ndarray_odeint;
+extern crate num_complex;
+extern crate spectral;
 extern crate fftw;
-extern crate num_traits;
-extern crate easy_storage;
 
 use itertools::iterate;
+use num_complex::Complex64 as c64;
 use ndarray::*;
 use ndarray_odeint::prelude::*;
-use fftw::*;
 use std::f64::consts::PI;
-use easy_storage::msgpack::*;
-use easy_storage::traits::*;
-
-struct KSE {
-    n_field: usize,
-    n_coef: usize,
-    length: f64,
-    u_pair: Pair<f64, c64>,
-    ux_pair: Pair<f64, c64>,
-}
-
-impl KSE {
-    fn new(n: usize, length: f64) -> Self {
-        let u_pair = Pair::r2c_1d(n, FLAG::FFTW_ESTIMATE);
-        let ux_pair = Pair::r2c_1d(n, FLAG::FFTW_ESTIMATE);
-        KSE {
-            n_field: u_pair.field.len(),
-            n_coef: u_pair.coef.len(),
-            length: length,
-            u_pair: u_pair,
-            ux_pair: ux_pair,
-        }
-    }
-}
-
-impl StiffDiag<c64, Ix1> for KSE {
-    fn nonlinear(&self, _: RcArray1<c64>) -> RcArray1<c64> {
-        RcArray::zeros(self.n_coef)
-    }
-    fn linear_diagonal(&self) -> RcArray1<c64> {
-        RcArray::from_iter((0..self.n_coef)
-            .map(|i| c64::new(-2.0 * PI * i as f64 / self.length, 0.0)))
-    }
-}
+use spectral::kse::*;
+use fftw::*;
 
 fn init_data(n: usize, l: f64) -> RcArray1<c64> {
     let mut pair = Pair::r2c_1d(n, FLAG::FFTW_ESTIMATE);
@@ -68,9 +36,16 @@ fn main() {
     let ts = iterate(x0, |y| teo.iterate(y.clone()));
     let end_time = 1000;
 
-    let st = MsgpackDir::new("data_dir");
+    print!("time");
+    for i in 0..n {
+        print!(",r{},c{}", i, i);
+    }
+    println!("");
     for (t, v) in ts.take(end_time).enumerate() {
-        let filename = format!("v{:05}.msg", t);
-        st.save_as(&v, &filename).unwrap();
+        print!("{:e}", dt * t as f64);
+        for c in v.iter() {
+            print!(",{:e},{:e}", c.re, c.im);
+        }
+        println!("");
     }
 }
