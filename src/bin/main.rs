@@ -30,7 +30,7 @@ fn main() {
     let l = 12.0;
     let dt = 0.01;
     let eom = KSE::new(n, l);
-    let teo = semi_implicit::diag_rk4(eom, dt);
+    let mut teo = semi_implicit::diag_rk4(eom, dt);
 
     let x0 = init_data(n, l);
     let ts = iterate(x0, |y| teo.iterate(y.clone()));
