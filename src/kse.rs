@@ -28,13 +28,16 @@ impl KSE {
 
 impl<'a> EOM<c64, Ix1> for &'a mut KSE {
     fn rhs(self, mut u: RcArray1<c64>) -> RcArray1<c64> {
-        for (up, u) in self.u_pair.coef.iter_mut().zip(u.iter()) {
-            *up = *u;
+        for i in 0..self.n_coef {
+            self.u_pair.coef[i] = u[i];
+            self.ux_pair.coef[i] = self.k[i] * u[i];
         }
         self.u_pair.backward();
-        for up in self.u_pair.field.iter_mut() {
-            *up = *up * *up;
+        self.ux_pair.backward();
+        for (up, uxp) in self.u_pair.field.iter_mut().zip(self.ux_pair.field.iter()) {
+            *up = *up * *uxp;
         }
+        self.u_pair.forward();
         for (up, u) in self.u_pair.coef.iter().zip(u.iter_mut()) {
             *u = *up;
         }
