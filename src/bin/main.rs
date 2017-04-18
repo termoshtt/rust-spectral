@@ -28,7 +28,7 @@ fn init_data(n: usize, l: f64) -> RcArray1<c64> {
 fn main() {
     let n = 128;
     let l = 12.0;
-    let dt = 0.01;
+    let dt = 1e-7;
     let eom = KSE::new(n, l);
     let mut teo = semi_implicit::diag_rk4(eom, dt);
 
