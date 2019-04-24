@@ -2,6 +2,8 @@ rust-spectral
 ==============
 [![Build Status](https://travis-ci.org/termoshtt/rust-spectral.svg?branch=master)](https://travis-ci.org/termoshtt/rust-spectral)
 
+**DEPRECATED** Merged into [eom crate](https://github.com/termoshtt/eom)
+
 [Spectral methods](https://en.wikipedia.org/wiki/Spectral_method) to solve PDEs
 
 Using following crates:
